@@ -7,3 +7,6 @@ class User(models.Model):
     user_id = models.CharField(max_length=30)
     photo = models.URLField(blank=True)
     cur_wallet = models.SmallIntegerField(default=0)
+
+    def __str__(self):
+        return self.intra_id
