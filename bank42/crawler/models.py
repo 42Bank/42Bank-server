@@ -8,6 +8,9 @@ class User(models.Model):
     photo = models.URLField(blank=True)
     cur_wallet = models.SmallIntegerField(default=0)
 
+    def __str__(self):
+        return self.intra_id
+
 class Order(models.Model):
     user_id = models.CharField(max_length=30)
     date = models.DateTimeField('checked date')
@@ -35,3 +38,4 @@ class Notice(models.Model):
     date = models.DateTimeField('event date')
     title = models.CharField(max_length=30)
     price = models.CharField(max_length=30)
+
