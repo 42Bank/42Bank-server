@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     'crawler.apps.CrawlerConfig',
+    'home.apps.HomeConfig',
     'rest_framework',
     'corsheaders',
 ]
