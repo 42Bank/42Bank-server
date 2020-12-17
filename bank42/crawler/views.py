@@ -67,7 +67,7 @@ def index(request):
     # return
 
     # me_content = r.content
-
+    return HttpResponse(r.json()['login'])
 #
 def insert_db(info):
     # user
