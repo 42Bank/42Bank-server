@@ -67,12 +67,12 @@ def index(request):
     # return
 
     # me_content = r.content
-
+    return HttpResponse(r.json()['login'])
 #
 def insert_db(info):
     # user
     try:
-        if User.objects.filter(intra_id='hjung'):
+        if User.objects.filter(intra_id=info['login']):
             pass
         else:
             User(intra_id   = info['login'],
