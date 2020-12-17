@@ -1,16 +1,14 @@
 import requests
 from django.shortcuts import render
 from django.http import HttpResponse
-import jsons
 
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view, parser_classes
-from requests_oauthlib import OAuth2Session
-
 from rest_framework import viewsets
 from .serializers import *
 from .models import *
+
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -54,12 +52,98 @@ def index(request):
         'redirect_uri': redirect_uri
     }
     r = requests.post("https://api.intra.42.fr/oauth/token", data)
-    json = r.json()
-    token = json['access_token']
+    token_json = r.json()
+    # print("========================== token_json" , token_json)
+    token = token_json['access_token']
     me_url = API_URL + "v2/me"
-    print(token)
+    # print(token)
     headers = {'Authorization': 'Bearer ' + token}
     r = requests.get(me_url, headers=headers)
-    print("Me:", r.status_code, r.reason)
+    me_content = r.json()
+    # print(me_content['login'])
+    insert_db(me_content)
 
-    return HttpResponse(json['access_token'])
+    # User(intra_id=me_content['login'], id=me_content['id'], cur_wallet=me_content['wallet']).save()
+    # return
+
+    # me_content = r.content
+
+#
+def insert_db(info):
+    # user
+    try:
+        User(intra_id   = info['login'],
+             user_id    = info['id'],
+             photo      = info['image_url'],
+             cur_wallet = info['wallet']).save()
+    except:
+        user = User.objects.all()
+        user.update(intra_id   = info['login'],
+                     user_id    = info['id'],
+                     photo      = info['image_url'],
+                     cur_wallet = info['wallet'])
+
+    # order
+    # try:
+    #     User(intra_id   = info['login'],
+    #          user_id    = info['id'],
+    #          photo      = info['image_url'],
+    #          cur_wallet = info['wallet']).save()
+    # except:
+    #     user = User.objects.all()
+    #     user.update(intra_id   = info['login'],
+    #                  user_id    = info['id'],
+    #                  photo      = info['image_url'],
+    #                  cur_wallet = info['wallet'])
+
+    # achvlist
+    # try:
+    #     User(intra_id   = info['login'],
+    #          user_id    = info['id'],
+    #          photo      = info['image_url'],
+    #          cur_wallet = info['wallet']).save()
+    # except:
+    #     user = User.objects.all()
+    #     user.update(intra_id   = info['login'],
+    #                  user_id    = info['id'],
+    #                  photo      = info['image_url'],
+    #                  cur_wallet = info['wallet'])
+
+    # achved
+    try:
+        for i in range(0, len(info['achievements'])):
+            Achved(user_id     = info['id'],
+                   achievement = info['achievements'][i]['name'],
+                   date        = '20201217').save()
+    except:
+        achved = Achved.objects.all()
+        for i in range(0, len(info['achievements'])):
+            Achved(user_id     = info['id'],
+                   achievement = info['achievements'][i]['name'],
+                   date        = '20201217').save()
+
+    # shop
+    # try:
+    #     User(intra_id   = info['login'],
+    #          user_id    = info['id'],
+    #          photo      = info['image_url'],
+    #          cur_wallet = info['wallet']).save()
+    # except:
+    #     user = User.objects.all()
+    #     user.update(intra_id   = info['login'],
+    #                  user_id    = info['id'],
+    #                  photo      = info['image_url'],
+    #                  cur_wallet = info['wallet'])
+
+    # notice
+    # try:
+    #     User(intra_id   = info['login'],
+    #          user_id    = info['id'],
+    #          photo      = info['image_url'],
+    #          cur_wallet = info['wallet']).save()
+    # except:
+    #     user = User.objects.all()
+    #     user.update(intra_id   = info['login'],
+    #                  user_id    = info['id'],
+    #                  photo      = info['image_url'],
+    #                  cur_wallet = info['wallet'])
