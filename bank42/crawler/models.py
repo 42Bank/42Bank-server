@@ -13,7 +13,7 @@ class User(models.Model):
 
 class Order(models.Model):
     user_id = models.CharField(max_length=30)
-    date = models.DateTimeField('checked date')
+    date = models.CharField(max_length=8)
     content = models.CharField(max_length=30)
     get_wallet = models.SmallIntegerField(default=0)
     spend_wallet = models.SmallIntegerField(default=0)
@@ -26,7 +26,7 @@ class AchvList(models.Model):
 class Achved(models.Model):
     user_id = models.CharField(max_length=30)
     achievement = models.CharField(max_length=30)
-    date = models.DateTimeField('checked date')
+    date = models.CharField(max_length=8)
 
 class Shop(models.Model):
     product_id = models.CharField(max_length=30)
@@ -35,7 +35,7 @@ class Shop(models.Model):
     photo = models.URLField(blank=True)
 
 class Notice(models.Model):
-    date = models.DateTimeField('event date')
+    date = models.CharField(max_length=8)
     title = models.CharField(max_length=30)
     price = models.CharField(max_length=30)
 
