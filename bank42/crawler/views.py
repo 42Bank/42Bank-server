@@ -72,10 +72,11 @@ def index(request):
 def insert_db(info):
     # user
     try:
-        User(intra_id   = info['login'],
-             user_id    = info['id'],
-             photo      = info['image_url'],
-             cur_wallet = info['wallet']).save()
+        if User.objects.filter(intra_id="", user_id="", photo="", cur_wallet=""):
+            User(intra_id   = info['login'],
+                 user_id    = info['id'],
+                 photo      = info['image_url'],
+                 cur_wallet = info['wallet']).save()
     except:
         user = User.objects.all()
         user.update(intra_id   = info['login'],
@@ -111,16 +112,17 @@ def insert_db(info):
 
     # achved
     try:
-        for i in range(0, len(info['achievements'])):
-            Achved(user_id     = info['id'],
-                   achievement = info['achievements'][i]['name'],
-                   date        = '20201217').save()
+        if Achved.objects.filter(user_id="", achievement="", date=""):
+            for i in range(0, len(info['achievements'])):
+                Achved(user_id     = info['id'],
+                       achievement = info['achievements'][i]['name'],
+                       date        = '20201217').save()
     except:
         achved = Achved.objects.all()
         for i in range(0, len(info['achievements'])):
-            Achved(user_id     = info['id'],
-                   achievement = info['achievements'][i]['name'],
-                   date        = '20201217').save()
+            achved.update(user_id     = info['id'],
+                          achievement = info['achievements'][i]['name'],
+                          date        = '20201217')
 
     # shop
     # try:
