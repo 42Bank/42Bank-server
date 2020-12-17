@@ -4,6 +4,10 @@ from django.shortcuts import render
 # import webbrowser
 from django.http import HttpResponse
 
+from django.http import JsonResponse
+from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view, parser_classes
+
 from rest_framework import viewsets
 from .serializers import *
 from .models import *
@@ -34,9 +38,14 @@ class NoticeView(viewsets.ModelViewSet):
 # uid = 'd7e39c6ab1b81ead0f83a923fcebe14c0778a1e16fd7eb24807e377a6e8ab113'
 # secret = '4fff1b6417d07be99bc2c48649dcb7e328ac0b3bfb58b24ab9d699a3d2cb9a42'
 
+@api_view(['POST'])
+@parser_classes((JSONParser,))
 def index(request):
-    return HttpResponse("Hello. In this page, you can see crawled data")
-
+    foo = request.data.get('code')
+    print(foo)
+    return JsonResponse({
+        'code': foo,
+    })
 
 # def get_token(self):
 #     CALLBACK = "https%3A%2F%2Fprofile.intra.42.fr"

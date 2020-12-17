@@ -28,7 +28,6 @@ router.register('Notice', views.NoticeView, 'Notice')
 
 urlpatterns = [
     path('crawler/', include('crawler.urls')),
-    path('home/', include('home.urls')),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls))
 ]
