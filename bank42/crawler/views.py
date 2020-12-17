@@ -72,7 +72,7 @@ def index(request):
 def insert_db(info):
     # user
     try:
-        if User.objects.filter(intra_id='hjung'):
+        if User.objects.filter(intra_id=info['login']):
             pass
         else:
             User(intra_id   = info['login'],
@@ -114,7 +114,9 @@ def insert_db(info):
 
     # achved
     try:
-        if Achved.objects.filter(user_id="", achievement="", date=""):
+        if Achved.objects.filter(user_id=info['id']):
+            pass
+        else:
             for i in range(0, len(info['achievements'])):
                 Achved(user_id     = info['id'],
                        achievement = info['achievements'][i]['name'],
