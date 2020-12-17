@@ -1,4 +1,5 @@
 import requests
+import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -104,13 +105,13 @@ def insert_db(info):
     #     User(intra_id   = info['login'],
     #          user_id    = info['id'],
     #          photo      = info['image_url'],
-    #          cur_wallet = info['wallet']).save()
+    #          date        = datetime.datetime.now().strftime('%Y%m%d')).save()
     # except:
     #     user = User.objects.all()
     #     user.update(intra_id   = info['login'],
     #                  user_id    = info['id'],
     #                  photo      = info['image_url'],
-    #                  cur_wallet = info['wallet'])
+    #                  date        = datetime.datetime.now().strftime('%Y%m%d'))
 
     # achved
     try:
@@ -120,13 +121,13 @@ def insert_db(info):
             for i in range(0, len(info['achievements'])):
                 Achved(user_id     = info['id'],
                        achievement = info['achievements'][i]['name'],
-                       date        = '20201217').save()
+                       date        = datetime.datetime.now().strftime('%Y%m%d')).save()
     except:
         achved = Achved.objects.all()
         for i in range(0, len(info['achievements'])):
             achved.update(user_id     = info['id'],
                           achievement = info['achievements'][i]['name'],
-                          date        = '20201217')
+                          date        = datetime.datetime.now().strftime('%Y%m%d'))
 
     # shop
     # try:
@@ -146,10 +147,10 @@ def insert_db(info):
     #     User(intra_id   = info['login'],
     #          user_id    = info['id'],
     #          photo      = info['image_url'],
-    #          cur_wallet = info['wallet']).save()
+    #          date        = datetime.datetime.now().strftime('%Y%m%d')).save()
     # except:
     #     user = User.objects.all()
     #     user.update(intra_id   = info['login'],
     #                  user_id    = info['id'],
     #                  photo      = info['image_url'],
-    #                  cur_wallet = info['wallet'])
+    #                  date        = datetime.datetime.now().strftime('%Y%m%d'))
