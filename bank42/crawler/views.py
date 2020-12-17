@@ -72,14 +72,16 @@ def index(request):
 def insert_db(info):
     # user
     try:
-        if User.objects.filter(intra_id="", user_id="", photo="", cur_wallet=""):
+        if User.objects.filter(intra_id='hjung'):
+            pass
+        else:
             User(intra_id   = info['login'],
                  user_id    = info['id'],
                  photo      = info['image_url'],
                  cur_wallet = info['wallet']).save()
     except:
         user = User.objects.all()
-        user.update(intra_id   = info['login'],
+        user.update(intra_id    = info['login'],
                      user_id    = info['id'],
                      photo      = info['image_url'],
                      cur_wallet = info['wallet'])
