@@ -41,6 +41,10 @@ redirect_uri = 'http://localhost:3000/main'
 scope = 'public'
 
 
+
+
+
+
 @api_view(['POST'])
 @parser_classes((JSONParser,))
 def index(request):
@@ -64,10 +68,6 @@ def index(request):
     # print(me_content['login'])
     insert_db(me_content)
 
-    # User(intra_id=me_content['login'], id=me_content['id'], cur_wallet=me_content['wallet']).save()
-    # return
-
-    # me_content = r.content
     return HttpResponse(r.json()['login'])
 #
 def insert_db(info):
@@ -154,3 +154,5 @@ def insert_db(info):
     #                  user_id    = info['id'],
     #                  photo      = info['image_url'],
     #                  date        = datetime.datetime.now().strftime('%Y%m%d'))
+
+
