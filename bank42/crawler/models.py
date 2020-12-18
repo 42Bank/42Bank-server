@@ -18,6 +18,7 @@ class Order(models.Model):
     get_wallet = models.SmallIntegerField(default=0)
     spend_wallet = models.SmallIntegerField(default=0)
     cur_wallet = models.SmallIntegerField(default=0)
+    intra_id = models.CharField(null=True,default='',max_length=30)
 
 class AchvList(models.Model):
     title = models.CharField(max_length=30)
@@ -38,4 +39,3 @@ class Notice(models.Model):
     date = models.CharField(max_length=30)
     title = models.CharField(max_length=30)
     price = models.CharField(max_length=30)
-
